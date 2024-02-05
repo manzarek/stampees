@@ -12,3 +12,7 @@ Site simulating stamp auctions
 ![Catalogue](/img/catalogue.png)
 
 ![Search](/img/search.png)
+
+# Database model
+
+![Database model](/img/mpd.png)
