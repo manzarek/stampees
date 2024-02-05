@@ -1,0 +1,83 @@
+<div class="container">
+  <div class="inscription-container">
+    <section class="inscription">
+        <div class="inscription-header">
+            <h1>{{ titre|capitalize }}</h1>
+        </div>            
+        
+        <form method="POST" action="insererEnchere" enctype="multipart/form-data">
+
+            <label>Description</label>
+            <div>
+                <textarea name="titre" rows="2" cols="50" maxlength="99">{{ timbre.titre }}</textarea>
+            </div>
+            <span>&nbsp;{{ erreursTimbre.titre }}</span>
+
+            <label>Année de création du timbre <i>(optionnel)</i></label>
+            <div>
+                <input type="text" name="date_creation" maxlength="4" size="4" value="{{ timbre.date_creation }}">
+            </div>  
+            <span>&nbsp;{{ erreursTimbre.date_creation }}</span>
+
+            <label>Pays émetteur du timbre</label>
+            <select name="pays_id">
+            {% for unPays in pays %}
+                <option value="{{ unPays.pays_id }}" {% if unPays.pays_id == timbre.pays_id %} selected {% endif %} >{{ unPays.nom }}</option>
+            {% endfor %}
+            </select>
+            <span>&nbsp;{{ erreursTimbre.pays }}</span>
+
+            <label>Prix plancher <i>(exemple: 25.34)</i></label>
+            <div>
+                <input type="text" name="prix_plancher" value="{{ enchere.prix_plancher }}" maxlength="6" size="6" />
+            </div> 
+            <span>&nbsp;{{ erreursEnchere.prix_plancher }}</span>
+
+            <label>Tirage <i>(optionnel)</i></label>
+            <input name="tirage" value="{{ timbre.tirage }}">
+            <span>&nbsp;{{ erreursTimbre.tirage }}</span>
+
+            <label>Dimensions <i>(optionnel)</i></label>
+            <input name="dimensions" maxlength="44" size="44" value="{{ timbre.dimensions }}">
+            <span>&nbsp;{{ erreursTimbre.dimensions }}</span>
+
+            <label>Certifié <i>(cocher si oui)</i></label>
+            <div>
+                <input type="checkbox" name="certification" value="true" {% if timbre.certification %} checked {% endif %}>
+            </div>
+            <span>&nbsp;{{ erreursTimbre.certification }}</span>
+
+            <label>Condition</label>
+            <select name="condition_id">
+            {% for condition in conditions %}
+                <option value="{{ condition.condition_id }}" {% if condition.condition_id == timbre.condition_id %} selected {% endif %}>{{ condition.nom }}</option>
+            {% endfor %}
+            </select>
+            <span>&nbsp;{{ erreursTimbre.condition }}</span>
+
+            <label>Couleur</label>
+            <select name="couleur_id">
+            {% for couleur in couleurs %}
+                <option value="{{ couleur.couleur_id }}" {% if couleur.couleur_id == timbre.couleur_id %} selected {% endif %}>{{ couleur.nom }}</option>
+            {% endfor %}
+            </select>
+            <span>&nbsp;{{ erreursTimbre.couleur }}</span>
+
+            <label>Centrage</label>
+            <select name="centrage_id">
+            {% for centrage in centrages %}
+                <option value="{{ centrage.centrage_id }}" {% if centrage.centrage_id == timbre.centrage_id %} selected {% endif %}>{{ centrage.nom }}</option>
+            {% endfor %}
+            </select>
+            <span>&nbsp;{{ erreursTimbre.centrage }}</span>
+
+            <label>Téléverser une photo du timbre:</label>
+            <input name="image" type="file" accept="image/jpeg, image/png, image/jpg, image/gif, image/webp">
+            <span>&nbsp;{{ erreursImage.image }}</span>
+
+            <input type="submit" value="Envoyer">
+
+        </form>
+    </section>
+  </div>
+</div>

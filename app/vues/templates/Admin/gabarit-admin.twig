@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <title>{{ titre }}</title>
+  <link rel="stylesheet" type="text/css" href="./assets/styles/admin.css">
+</head>
+
+<body>
+  <div id="page">
+    <header>
+      <p>
+        {{ oUtilConn.prenom }} {{ oUtilConn.nom }}
+        <a href="admin?entite=utilisateur&action=d">Déconnecter</a>
+      </p>
+      <nav>
+        <ul>
+          <li><hr><a href="admin?entite=enchere">Enchères</a></li>
+          <li><a href="admin?entite=utilisateur">Utilisateurs</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+
+    {{ include(templateMain) }}
+
+    </main>
+  </div>
+</body>
+</html>

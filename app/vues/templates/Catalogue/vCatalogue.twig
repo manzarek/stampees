@@ -1,0 +1,230 @@
+    <div class="container">
+      <div class="filters__main-container">
+        <aside id="filtres" class="filters">
+
+        <div class="hidden-menu">
+          <input id="valeurRecherche" type="hidden" value="{{ recherche.keywords }}">
+          <input id="valeurTemps" type="hidden" value="{{ filtre.temps }}">
+          <input id="valeurTri" type="hidden" value="{{ tri.tri }}">
+        </div>
+
+        <details class="filter-box" open>
+          <summary class="filter-title">
+            <h2>Coup de coeur du Lord</h2>
+          </summary>
+          <div class="filter-group">
+            <select id="listeCoupCoeur" name="coup-coeur">
+              <option value="2" {% if filtre.coup_coeur == 2 %} selected {% endif %}>Peu importe</option>
+              <option value="1" {% if filtre.coup_coeur == 1 %} selected {% endif %}>Oui<span class="count">({{ coup_coeur.nombre_coup_coeur }})</span> </option>
+              <option value="0" {% if filtre.coup_coeur == 0 %} selected {% endif %}>Non<span class="count">({{ coup_coeur.nombre_non_coup_coeur }})</span> </option>
+            </select>
+          </div>
+        </details>
+
+        <details class="filter-box" open>
+            <summary class="filter-title">
+              <h2>Pays d'origine du timbre</h2>
+            </summary>
+            <div class="filter-group">
+              <select id="listePays" name="pays">
+                <option value="0">Tous les pays</option>
+              {% for unPays in pays %}
+                <option value="{{ unPays.pays_id }}" {% if unPays.pays_id == filtre.pays %} selected {% endif %}>{{ unPays.nom }} <span class="count">({{ unPays.nombre_timbres }})</span> </option>
+              {% endfor %}
+              </select>
+            </div>
+          </details>
+
+          <details class="filter-box" open>
+            <summary class="filter-title">
+              <h2>Condition</h2>
+            </summary>
+            <div class="filter-group">
+              <select id="listeConditions" name="condition">
+                <option value="0">Toutes les conditions</option>
+              {% for uneCondition in conditions %}
+                <option value="{{ uneCondition.condition_id }}" {% if uneCondition.condition_id == filtre.condition %} selected {% endif %}>{{ uneCondition.nom }} <span class="count">({{ uneCondition.nombre_timbres }})</span> </option>
+              {% endfor %}
+              </select>
+            </div>
+          </details>
+
+          <details class="filter-box" open>
+            <summary class="filter-title">
+              <h2>Centrage</h2>
+            </summary>
+            <div class="filter-group">
+              <select id="listeCentrages" name="centrage">
+                <option value="0">Tous les centrages</option>
+              {% for unCentrage in centrages %}
+                <option value="{{ unCentrage.centrage_id }}" {% if unCentrage.centrage_id == filtre.centrage %} selected {% endif %}>{{ unCentrage.nom }} <span class="count">({{ unCentrage.nombre_timbres }})</span> </option>
+              {% endfor %}
+              </select>
+            </div>
+          </details>
+
+          <details class="filter-box" open>
+            <summary class="filter-title">
+              <h2>Couleur</h2>
+            </summary>
+            <div class="filter-group">
+              <select id="listeCouleurs" name="couleur">
+                <option value="0">Toutes les couleurs</option>
+              {% for uneCouleur in couleurs %}
+                <option value="{{ uneCouleur.couleur_id }}" {% if uneCouleur.couleur_id == filtre.couleur %} selected {% endif %}>{{ uneCouleur.nom }} <span class="count">({{ uneCouleur.nombre_timbres }})</span> </option>
+              {% endfor %}
+              </select>
+            </div>
+          </details>
+
+          <details class="filter-box" open>
+            <summary class="filter-title">
+              <h2>A un certificat</h2>
+            </summary>
+            <div class="filter-group">
+              <select id="listeCertifications" name="certification">
+                <option value="2" {% if filtre.certification == 2 %} selected {% endif %}>Peu importe</option>
+                <option value="1" {% if filtre.certification == 1 %} selected {% endif %}>Oui<span class="count">({{ certification.nombre_timbres_certifie }})</span> </option>
+                <option value="0" {% if filtre.certification == 0 %} selected {% endif %}>Non<span class="count">({{ certification.nombre_timbres_non_certifie }})</span> </option>
+              </select>
+            </div>
+          </details>
+
+          <details class="filter-box" open>
+            <summary class="filter-title">
+              <h2>Année de création du timbre</h2>
+            </summary>
+            <div class="filter-group">
+
+              <input id="anneeDebut" type="text" name="year_from[]" maxlength="4" value="{{ filtre.annee_debut }}">
+              -
+              <input id="anneeFin" type="text" name="year_to[]" maxlength="4" value="{{ filtre.annee_fin }}">
+              <div class="label-intervalle">
+                <label for="year_from">(Début</label>
+                <span> - </span>
+                <label for="year_to">Fin)</label>
+              </div>
+            </div>
+          </details>
+        </aside>
+        <section class="content-container">
+          <div class="browsing-header">
+            <h1>{{ header }}</h1>
+            <div class="listing-options">
+              <ul>
+                <li>
+                  <a class="browsing-link {% if not filtre.temps %} active {% else %} desactive {% endif %}" href="{{ lien.temps_tout }}">Toutes les enchères</a>
+                </li>
+                <li>
+                  <a class="browsing-link {% if filtre.temps == "courant" %} active {% else %} desactive {% endif %}" href="{{ lien.temps_courant }}">Enchères courantes</a>
+                </li>
+                <li>
+                  <a class="browsing-link {% if filtre.temps == "passe" %} active {% else %} desactive {% endif %}" href="{{ lien.temps_passe }}">Enchères passées</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="browsing-header">
+            <div>
+              {% if nombre_encheres > 0 %}
+              <p> <strong>{{ nombre_encheres }}</strong> annonces trouvées. Affichage des résultats <strong>1</strong> à
+                <strong>{{ nombre_encheres }}</strong>.
+              </p>
+              {% else %}
+              <p>Aucun enchère trouvée. Essayez d'enlever quelques filtres.</p>
+              {% endif %}
+            </div>
+            <div class="btn-group">
+              <div class="display-buttons hidden-menu">
+                <a href="timbre.html"><span class="material-symbols-outlined">grid_on</span></a>
+                <a href="timbre.html"><span class="view_list material-symbols-outlined">view_list</span></a>
+              </div>
+              <div class="dropdown">
+                <button id="sort-btn" class="sort-btn">
+                  <span class="sort-span">{% if tri.tri %}{{ tri.tri }} {% else %} Trier par {% endif %}</span>
+                  <span class="sort-span material-icons">arrow_drop_down</span>
+                </button>
+                <div id="myDropdown" class="dropdown-content">
+                  <a href="{{ lien.prix_croissant }}">Prix croissant</a>
+                  <a href="{{ lien.prix_decroissant }}">Prix décroissant</a>
+                  <a href="{{ lien.fin_enchere }}">Fini bientôt</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid--quatre mt-small">
+
+          {% for enchere in encheres %}
+            <div class="tile">
+              <a href="voirEnchere?enchere_id={{ enchere.enchere_id }}">
+                <div class="image">
+                  <img src="img/{{ enchere.image }}" alt="{{ enchere.titre }}">
+                </div>
+                <div class="title">
+                  <div class="title-container">
+                    <h2>{{ enchere.titre }}</h2>
+                    <div class="pricing-container">
+                      <span>{{ enchere.mise_minimum }}$</span>
+                    </div>
+                    <div class="auction-container">
+                      <div class="bid-ends">
+                        {{ enchere.temps_restant }} | <span>{{ enchere.nombre_mises }}</span>
+                        mises
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% if enchere.coup_coeur %}
+                <span class="coup-de-coeur material-symbols-outlined">
+                  favorite
+                </span>
+                {% endif %}
+                {% if enchere.favori %}
+                <span class="favori favori--bottom material-symbols-outlined">
+                  thumb_up
+                </span>
+                {% endif %}
+              </a>
+            </div>
+          {% endfor %}
+          </div>
+          <div class="browsing-footer hidden-menu">
+            <div class="items-per-page">
+              <ul>
+                <li><span class="browsing-text browsing-link">Items par page:</span></li>
+                <li><a class="active browsing-link" href="timbre.html">12</a></li>
+                <li><a class="desactive browsing-link" href="timbre.html">24</a></li>
+                <li><a class="desactive browsing-link" href="timbre.html">48</a></li>
+              </ul>
+            </div>
+            <div class="pagination">
+              <ul>
+                <li>
+                  <label class="browsing-text browsing-link" for="numero_page">Aller à la page:</label>
+                </li>
+
+                <li>
+                  <div class="browsing-text browsing-link">
+
+                    <form action="fiche.html">
+                      <input id="numero_page" type="text" value="1">
+                    </form>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="pagination">
+              <ul>
+                <li><a class="browsing-link active" href="timbre.html">1</a></li>
+                <li><a class="browsing-link desactive" href="timbre.html">2</a></li>
+                <li><a class="browsing-link desactive" href="timbre.html">3</a></li>
+                <li><a class="browsing-link desactive" href="timbre.html">4</a></li>
+                <li><a class="browsing-link desactive" href="timbre.html">5</a></li>
+                <li><a class="browsing-link desactive" href="timbre.html">...</a></li>
+                <li><a class="browsing-link desactive" href="timbre.html">Suivant</a></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>

@@ -1,0 +1,26 @@
+<script>history.pushState({}, '', 'admin?entite=enchere')</script>
+<section>
+  <h1>{{ titre|upper }}</h1>
+  <a href="admin?entite=enchere&action=a">Ajouter une enchère</a>
+  <p class="messageRetourAction {{ classRetour }}">{{ messageRetourAction }}&nbsp;</p>   
+  <div class="g encheres">
+    <div class="t">Id</div>
+    <div class="t">Utilisateur</div>
+    <div class="t">Date fin</div>
+    <div class="t">Titre </div>
+    <div class="t">Actions</div>
+  {% for enchere in encheres %}
+    <div class="l">
+      <div class="c dr">{{ enchere.enchere_id }}</div>
+      <div class="c   ">{{ enchere.nom_usager }} </div>
+      <div class="c dr">{{ enchere.date_fin }}</div>
+      <div class="c   ">{{ enchere.titre }}</div>
+      <div class="c   ">
+        <a href="admin?entite=enchere&action=m&enchere_id={{ enchere.enchere_id }}">modifier</a>
+        <span class="confirmer" data-href="admin?entite=enchere&action=s&enchere_id={{ enchere.enchere_id }}">supprimer</span>
+      </div>
+    </div>
+  {% endfor %} 
+  </div>
+</section>
+{{ include("/Admin/modaleSuppression.twig") }}

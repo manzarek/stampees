@@ -1,0 +1,49 @@
+    <div class="container">
+
+      <div class="favori-header">
+        <div class="favori-title">
+          <h1>Parcourir mes favoris</h1>
+        </div>
+
+      {% if not encheres %}
+        <h4>Aucun favori pour cet usager.</h4>
+      {% endif %}
+      </div>
+
+      <div class="grid grid--quatre mt-small">
+
+      {% for enchere in encheres %}
+        <div class="tile">
+          <a href="voirEnchere?enchere_id={{ enchere.enchere_id }}">
+            <div class="image">
+              <img src="img/{{ enchere.image }}" alt="{{ enchere.titre }}">
+            </div>
+            <div class="title">
+              <div class="title-container">
+                <h2>{{ enchere.titre }}</h2>
+                <div class="pricing-container">
+                  <span>{{ enchere.mise_minimum }}$</span>
+                </div>
+                <div class="auction-container">
+                  <div class="bid-ends">
+                    {{ enchere.temps_restant }} | <span>{{ enchere.nombre_mises }}</span>
+                    mises
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% if enchere.coup_coeur %}
+            <span class="coup-de-coeur material-symbols-outlined">
+              favorite
+            </span>
+            {% endif %}
+            {% if enchere.favori %}
+            <span class="favori favori--bottom material-symbols-outlined">
+            thumb_up
+            </span>
+            {% endif %}
+          </a>
+        </div>
+      {% endfor %}
+      </div>
+    </div>

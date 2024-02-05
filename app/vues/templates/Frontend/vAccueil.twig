@@ -1,0 +1,150 @@
+    <div class="hero">
+      <div class="hero-img-container">
+        <img src="img/hero.webp" alt="Image d'une collection de timbres">
+      </div>
+      <div class="container">
+        <div class="hero-txt">
+          <div class="hero-title">
+            <h1>Par les collectionneurs,
+              pour les collectionneurs</h1>
+          </div>
+          <div class="hero-subtitle">
+            <h2>Stampee's propose des enchères de timbres et de collections de timbres
+              aux philatélistes du monde entier </h2>
+          </div>
+          <div class="hero-cta">
+            <a href="catalogue" class="lord-link mt-xsmall">
+              <span>Parcourir les enchères</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="carrousel-header">
+        <h2>Enchères coup de coeur</h2>
+        <a href="catalogue?coupCoeur=1" class="carrousel-link">
+          Voir toutes les fiches
+          <span class="material-icons arrow">
+            arrow_forward
+          </span>
+        </a>
+      </div>
+      <div class="carrousel">
+        <div class="carrousel-grid grid--douze">
+          {% for enchere in encheres %}
+          <div class="tile">
+            <a href="voirEnchere?enchere_id={{ enchere.enchere_id }}">
+              <div class="image">
+                <img src="img/{{ enchere.image }}" alt="{{ enchere.titre }}">
+              </div>
+              <div class="title">
+                <div class="title-container">
+                  <h2>{{ enchere.titre }}</h2>
+                  <div class="pricing-container">
+                    <span>{{ enchere.mise_minimum }}$</span>
+                  </div>
+                  <div class="auction-container">
+                    <div class="bid-ends">
+                      {{ enchere.temps_restant }} | <span>{{ enchere.nombre_mises }}</span>
+                      mises
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% if enchere.coup_coeur %}
+              <span class="coup-de-coeur material-symbols-outlined">
+                favorite
+              </span>
+              {% endif %}
+              {% if enchere.favori %}
+              <span class="favori favori--bottom material-symbols-outlined">
+              thumb_up
+              </span>
+              {% endif %}
+            </a>
+          </div>
+          {% endfor %}
+
+          <button class="carrousel-right-btn">
+            <span class="material-icons carrousel-chevron-right">
+              chevron_right
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="statement">
+      <div class="container">
+        <div class="statement-container">
+          <div class="statement-block">
+            <div class="statement-title">
+              <h2>Tout sur les timbres</h2>
+            </div>
+            <div class="statement-subtitle">
+              <h3>Notre plateforme est spécialement conçue pour comprendre les collectionneurs et leur passion.</h3>
+            </div>
+          </div>
+          <div class="statement-block">
+            <div class="statement-title">
+              <h2>Soyez en confiance</h2>
+            </div>
+            <div class="statement-subtitle">
+              <h3>Les timbres offerts sur Stampee's sont choisis soigneusement par Lord Stampee et garantis par la
+                protection PayPal. </h3>
+            </div>
+          </div>
+          <div class="statement-block">
+            <div class="statement-title">
+              <h2>Plus de 100 000 offres</h2>
+            </div>
+            <div class="statement-subtitle">
+              <h3>Parcourez une collection exhaustive de timbres du monde entier.</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="lord-presentation decorateur">
+        <div class="lord-txt">
+          <div class="lord-title">
+            <h2>Rencontrez Lord Reginald Stampee III</h2>
+          </div>
+          <div class="lord-subtitle">
+            <h3>Sa réputation de collectionneur n'est plus à faire.</h3>
+          </div>
+          <div class="lord-subtitle">
+            <h3>Son expertise en timbres rares est reconnue par les philatélistes du monde entier.</h3>
+          </div>
+          <a class="lord-link" href="timbre.html">
+            <span>En savoir plus</span>
+          </a>
+        </div>
+        <img src="img/lord.webp" alt="Photo de Lord Stampee">
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="newsletter decorateur">
+        <img src="img/newsletter.webp" alt="Photo d'un timbre rare">
+        <div class="newsletter-txt">
+          <div class="newsletter-header">
+            <h2>Suivez les enchères de timbres les plus courues</h2>
+          </div>
+          <div class="newsletter-txt__subtitle">
+            <h3>Inscrivez-vous à l'infolettre Stampee's ! </h3>
+          </div>
+          <label class="hidden-menu" for="courriel">Inscription à l'infolettre</label>
+          <form action="index.html">
+            <div class="input-container">
+              <input type="text" id="courriel" name="courriel" placeholder="Votre courriel">
+            </div>
+            <button><span>S'inscrire</span></button>
+          </form>
+          <div class="newsletter-agreement">
+            <h4>En cliquant sur s'inscrire, je consens à ce que soient traitées mes données de courriel.</h4>
+          </div>
+        </div>
+      </div>
+    </div>

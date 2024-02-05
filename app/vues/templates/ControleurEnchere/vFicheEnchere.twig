@@ -1,0 +1,126 @@
+    <div class="bg--light-gray">
+        <div class="container">
+            <div class="message-retour">
+                <h3>{{ messageRetourAction }}</h3>
+            </div>
+            <div class="favori-container">
+
+            {% if statutUtilisateur.admin %}
+                {% if enchere.coup_coeur %}
+                <form id="formCoupCoeur" method="POST" action="retirerCoupCoeur">
+                    <input type="hidden" name="enchere_id" value="{{ enchere.enchere_id }}">
+                    <button id="retirerCoupCoeur"class="standard-button" type="submit">Retirer coup de coeur</button>
+                </form> 
+                {% else %}
+                <form id="formCoupCoeur" method="POST" action="ajouterCoupCoeur">
+                    <input type="hidden" name="enchere_id" value="{{ enchere.enchere_id }}">
+                    <button id="ajouterCoupCoeur" class="standard-button" type="submit">Ajouter coup de coeur</button>
+                </form>
+                {% endif %}
+            {% endif %}
+
+            {% if oUtilConn.utilisateur_id == enchere.utilisateur_id %}
+            <button class="standard-button confirmer" data-href="supprimerEnchere?enchere_id={{ enchere.enchere_id }}">Supprimer l'enchère</button>        
+            {% endif %}
+
+            {% if enchere.favori %}
+                <form id="formFavori" method="POST" action="retirerFavori">
+                    <input type="hidden" name="enchere_id" value="{{ enchere.enchere_id }}">
+                    <button id="retirerFavori" class="standard-button" type="submit">Retirer favori</button>
+                </form>
+            {% else %}
+                <form id="formFavori" method="POST" action="ajouterFavori">
+                    <input type="hidden" name="enchere_id" value="{{ enchere.enchere_id }}">
+                    <button id="ajouterFavori" class="standard-button" type="submit">Ajouter favori</button>
+                </form>
+            {% endif %}
+            </div>
+            <div class="fiche">
+                <div class="img-zoom-container">
+                    <img id="imagePrincipale" src="img/{{ image.nom_fichier }}" alt="">
+                    <div id="imageZoom" class="img-zoom-result"></div>
+                </div>
+                <div class="fiche-texte">
+                    <div class="fiche-titre">
+                        <h2>{{ timbre.titre }}</h2>
+                    </div>
+                    <div class="fiche-main">
+                        <div class="fiche-enchere">
+                            <div class="fiche-prix">
+                                <h3>{{ enchere.mise_minimum }}$</h3>
+                            </div>
+                            <p>Vendeur: {{ enchere.nom_usager }}</p>
+                            <p id="tempsRestant">Temps restant:</p>
+                            <p id="dateFin" class="hidden-menu">{{ enchere.date_fin }}</p>
+                        </div>
+                        
+                        <div class="fiche-mise {% if oUtilConn.utilisateur_id == enchere.utilisateur_id %} hidden-menu {% endif %} ">
+                            <div class="mise-titre">
+                                <h5>Faire une mise</h5>
+                            </div>
+                            <div class="mise-container">
+                                <form id="formMise" method="POST" action="placerMise">
+                                    <input id="montantMise" placeholder="CAD" type="text" name="montant">
+                                    <input type="hidden" name="enchere_id" value="{{ enchere.enchere_id }}">
+                                    <input id="miseMinimum" type="hidden" name="mise_minimum" value="{{ enchere.mise_minimum }}">
+                                    <button id="placerMise" type="submit">Miser</button>
+                                </form>
+                            </div>
+                            <p>Mise minimum: <span id="mise-minimum">{{ enchere.mise_minimum }}$</span></p>
+                        </div>
+                        
+                    </div>
+                    <div class="fiche-timbre">
+                        <p>Année de création du timbre: <span>{% if timbre.annee_creation != '0000' %} {{ timbre.annee_creation }}  {% else %} non spécifié {% endif %}</span></p>
+                        <p>Tirage: <span>{% if timbre.tirage %} {{ timbre.tirage }}  {% else %} non spécifié {% endif %}</span></p>
+                        <p>Dimensions: <span>{% if timbre.dimensions %} {{ timbre.dimensions }} {% else %} non spécifié {% endif %}</span></p>
+                        <p>Certifié: {{ timbre.certification }}</span></p>
+                        <p>Pays: {{ timbre.pays }}</span></p>
+                        <p>Condition: {{ timbre.condition }}</span></p>
+                        <p>Centrage: {{ timbre.centrage }}</span></p>
+                        <p>Couleur: {{ timbre.couleur }}</span></p>
+                    </div>
+                    <div class="historique-mise">
+                        <h3>Historique des mises</h3>
+                        {% if mises %}
+                        <table>
+                            <tr>
+                                <th>Usager</th>
+                                <th>Montant</th>
+                                <th>Date</th>
+                            </tr>
+                            {% for mise in mises %}
+                            <tr>
+                                <td>{{ mise.nom_usager }}</td>
+                                <td>{{ mise.mise }}</td>
+                                <td>{{ mise.date }}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                        {% else %}
+                        <p> Aucune mise pour le moment.</p>
+                        {% endif %}
+                    </div>
+                    {% if enchere.coup_coeur %}
+                    <span class="coup-de-coeur material-symbols-outlined">
+                    favorite
+                    </span>
+                    {% endif %}
+                    {% if enchere.favori %}
+                    <span class="favori favori--top material-symbols-outlined">
+                    thumb_up
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="fiche-footer">
+                <h5>ID: {{ enchere.enchere_id }}</h5>
+                <!-- <div class="img-zoom-container">
+                    <img id="myimage" src="img/{{ image.nom_fichier }}" width="300" height="240" alt="Girl">
+                    <div id="myresult" class="img-zoom-result"></div> -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {{ include("/Admin/modaleSuppression.twig") }}

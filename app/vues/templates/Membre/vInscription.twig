@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="inscription-container">
+    <section class="inscription">
+
+      <div class="inscription-header">
+        <h1>S'inscrire à Stampee's</h1>
+      </div>
+
+      <form method="POST" action="inscrire">
+
+        <label>Nom d'usager</label>
+        <input name="nom_usager" value="{{ utilisateur.nom_usager }}">
+        <span>&nbsp;{{ erreurs.nom_usager }}</span>
+
+        <label>Courriel</label>
+        <input name="courriel" value="{{ utilisateur.courriel }}">
+        <span>&nbsp;{{ erreurs.courriel }}</span>
+
+        <label>Mot de passe</label>
+        <input name="mot_de_passe" type="password" value="{{ utilisateur.mot_de_passe }}">
+        <span>&nbsp;{{ erreurs.mot_de_passe }}</span>
+
+        <label>Prénom</label>
+        <input name="prenom" value="{{ utilisateur.prenom }}">
+        <span>&nbsp;{{ erreurs.prenom }}</span>
+
+        <label>Nom</label>
+        <input name="nom" value="{{ utilisateur.nom }}">
+        <span>&nbsp;{{ erreurs.nom }}</span>
+
+        <label>Adresse</label>
+        <input name="adresse" value="{{ utilisateur.adresse }}">
+        <span>&nbsp;{{ erreurs.adresse }}</span>
+
+        <label>Ville</label>
+        <input name="ville" value="{{ utilisateur.ville }}">
+        <span>&nbsp;{{ erreurs.ville }}</span>
+
+        <label>Province</label>
+        <input name="province" value="{{ utilisateur.province }}">
+        <span>&nbsp;{{ erreurs.province }}</span>   
+
+        <label>Code Postal</label>
+        <input name="code_postal" value="{{ utilisateur.code_postal }}">
+        <span>&nbsp;{{ erreurs.code_postal }}</span> 
+
+        <label>Pays</label>
+        <select name="pays_id">
+        {% for unPays in pays %}
+            <option value="{{ unPays.pays_id }}" {% if unPays.pays_id == utilisateur.pays_id %} selected {% endif %}>{{ unPays.nom }}</option>
+        {% endfor %}
+        </select>
+        <span>&nbsp;{{ erreurs.pays }}</span>
+
+        <input type="submit" value="Envoyer">
+
+      </form>
+    </section>
+  </div>
+
+</div>
