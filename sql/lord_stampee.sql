@@ -1,1 +1,0 @@
-INSERT INTO `utilisateur`(`nom_usager`, `courriel`, `mot_de_passe`, `nom`, `prenom`, `adresse`, `ville`, `province`, `code_postal`, `date_enregistrement`, `statut_id`, `pays_id`) VALUES ('LordStampee1','lord@stampees.com',SHA2('Aa1bbbbbbc',512),'Stampee','Reginald','101 Downing Street','London','SW1A 2AA','Unknown',NOW(),1,238)
