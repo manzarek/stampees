@@ -8,3 +8,7 @@ Site simulating stamp auctions
 ![My auctions](/img/my_auctions.png)
 
 ![Make a bid](/img/bid.png)
+
+![Catalogue](/img/catalogue.png)
+
+![Search](/img/search.png)
